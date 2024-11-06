@@ -1,128 +1,108 @@
 package com.devsuperior.dscommerce.entities;
 
+import jakarta.persistence.*;
+
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_order")
 public class Order {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant moment;
-	private OrderStatus status;
-	
-	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private User client;
-	
-	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
-	private Payment payment;
-	
-	@OneToMany(mappedBy = "id.order")
-	private Set<OrderItem> items = new HashSet<>();
-	
-	public Order() {
-		
-	}
 
-	public Order(Long id, Instant moment, OrderStatus status, User client, Payment payment) {
-		super();
-		this.id = id;
-		this.moment = moment;
-		this.status = status;
-		this.client = client;
-		this.payment = payment;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public Long getId() {
-		return id;
-	}
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant moment;
+    private OrderStatus status;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private User client;
 
-	public Instant getMoment() {
-		return moment;
-	}
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
 
-	public void setMoment(Instant moment) {
-		this.moment = moment;
-	}
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
-	public OrderStatus getStatus() {
-		return status;
-	}
+    public Order() {
+    }
 
-	public void setStatus(OrderStatus status) {
-		this.status = status;
-	}
+    public Order(Long id, Instant moment, OrderStatus status, User client, Payment payment) {
+        this.id = id;
+        this.moment = moment;
+        this.status = status;
+        this.client = client;
+        this.payment = payment;
+    }
 
-	public User getClient() {
-		return client;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setClient(User client) {
-		this.client = client;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Payment getPayment() {
-		return payment;
-	}
+    public Instant getMoment() {
+        return moment;
+    }
 
-	public void setPayment(Payment payment) {
-		this.payment = payment;
-	}
-	
-	public Set<OrderItem> getItems(){
-		return items;
-	}
-	
-	public List<Product> getProducts() {
-		return items.stream().map(x -> x.getProduct()).toList();
-	}
+    public void setMoment(Instant moment) {
+        this.moment = moment;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
+    public OrderStatus getStatus() {
+        return status;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Order other = (Order) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-	
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public User getClient() {
+        return client;
+    }
+
+    public void setClient(User client) {
+        this.client = client;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    public Set<OrderItem> getItems() {
+        return items;
+    }
+
+    public List<Product> getProducts() {
+        return items.stream().map(x -> x.getProduct()).toList();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Order order = (Order) o;
+
+        return Objects.equals(id, order.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }
+

@@ -4,72 +4,54 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+import java.util.Objects;
+
 @Embeddable
 public class OrderItemPK {
-	
-	@ManyToOne
-	@JoinColumn(name = "order_id")
-	private Order order;
-	
-	@ManyToOne
-	@JoinColumn(name = "product_id")
-	private Product product;
-	
-	public OrderItemPK() {
-		
-	}
 
-	public OrderItemPK(Order order, Product product) {
-		super();
-		this.order = order;
-		this.product = product;
-	}
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-	public Order getOrder() {
-		return order;
-	}
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-	public void setOrder(Order order) {
-		this.order = order;
-	}
+    public OrderItemPK() {
+    }
 
-	public Product getProduct() {
-		return product;
-	}
+    public Order getOrder() {
+        return order;
+    }
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((order == null) ? 0 : order.hashCode());
-		result = prime * result + ((product == null) ? 0 : product.hashCode());
-		return result;
-	}
+    public Product getProduct() {
+        return product;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		OrderItemPK other = (OrderItemPK) obj;
-		if (order == null) {
-			if (other.order != null)
-				return false;
-		} else if (!order.equals(other.order))
-			return false;
-		if (product == null) {
-			if (other.product != null)
-				return false;
-		} else if (!product.equals(other.product))
-			return false;
-		return true;
-	}
-	
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OrderItemPK that = (OrderItemPK) o;
+
+        if (!Objects.equals(order, that.order)) return false;
+        return Objects.equals(product, that.product);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = order != null ? order.hashCode() : 0;
+        result = 31 * result + (product != null ? product.hashCode() : 0);
+        return result;
+    }
 }
+
