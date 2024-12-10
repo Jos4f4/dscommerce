@@ -1,4 +1,4 @@
-package com.devsuperior.dscommerce.services;
+package com.devsuperior.dscommerce.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
