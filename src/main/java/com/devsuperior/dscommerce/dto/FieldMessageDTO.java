@@ -18,4 +18,3 @@ public class FieldMessageDTO {
         return message;
     }
 }
-

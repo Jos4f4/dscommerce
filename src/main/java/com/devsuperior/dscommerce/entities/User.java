@@ -20,9 +20,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;	
+import jakarta.persistence.Table;
 
-@SuppressWarnings("serial")//Substitui o Serializable
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "tb_user")
 public class User implements UserDetails {
@@ -30,12 +30,10 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
     private String name;
 
     @Column(unique = true)
     private String email;
-    
     private String phone;
     private LocalDate birthDate;
     private String password;
@@ -45,8 +43,8 @@ public class User implements UserDetails {
     
     @ManyToMany
     @JoinTable(name = "tb_user_role",
-    		joinColumns = @JoinColumn(name = "user_id"),
-    		inverseJoinColumns = @JoinColumn(name = "role_id"))
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     public User() {
@@ -112,37 +110,21 @@ public class User implements UserDetails {
     public List<Order> getOrders() {
         return orders;
     }
-    
-    public Set<Role> getRoles() {
-		return roles;
-	}
-    
-   /* 
-    public boolean hasRole(String roleName) {
-    	for(Role role : roles) {
-    		if(role.getAuthority().equals(roleName)) {
-    			return true;
-    		}
-    	}
-    	return false;
-    }
-    */
-    
-    //=================
+
     public void addRole(Role role) {
     	roles.add(role);
     }
     
-    public boolean hasRole(String roleName) {
-    	for(Role role : roles) {
-    		if(role.getAuthority().equals(roleName)) {
-    			return true;
-    		}
-    	}
-    	return false;
-    }
-    //=================
-	@Override
+	public boolean hasRole(String roleName) {
+		for (Role role : roles) {
+			if (role.getAuthority().equals(roleName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

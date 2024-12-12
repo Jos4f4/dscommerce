@@ -73,4 +73,3 @@ public class OrderItem {
         return id != null ? id.hashCode() : 0;
     }
 }
-

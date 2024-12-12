@@ -5,12 +5,11 @@ import java.time.Instant;
 import com.devsuperior.dscommerce.entities.Payment;
 
 public class PaymentDTO {
-	
+
 	private Long id;
 	private Instant moment;
 	
 	public PaymentDTO(Long id, Instant moment) {
-		super();
 		this.id = id;
 		this.moment = moment;
 	}
@@ -27,5 +26,4 @@ public class PaymentDTO {
 	public Instant getMoment() {
 		return moment;
 	}
-	
 }

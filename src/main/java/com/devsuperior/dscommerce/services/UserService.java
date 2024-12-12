@@ -20,7 +20,7 @@ import com.devsuperior.dscommerce.repositories.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService {
-	
+
 	@Autowired
 	private UserRepository repository;
 	
@@ -28,14 +28,14 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		List<UserDetailsProjection> result = repository.searchUserAndRolesByEmail(username);
-		if(result.size() == 0) {
+		if (result.size() == 0) {
 			throw new UsernameNotFoundException("Email not found");
 		}
 		
 		User user = new User();
 		user.setEmail(result.get(0).getUsername());
 		user.setPassword(result.get(0).getPassword());
-		for(UserDetailsProjection projection : result) {
+		for (UserDetailsProjection projection : result) {
 			user.addRole(new Role(projection.getRoleId(), projection.getAuthority()));
 		}
 		
@@ -47,18 +47,16 @@ public class UserService implements UserDetailsService {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			Jwt jwtPrincipal = (Jwt) authentication.getPrincipal();
 			String username = jwtPrincipal.getClaim("username");
-			
-			User user = repository.findByEmail(username).get();
-			return user;
+			return repository.findByEmail(username).get();
 		}
-		catch(Exception e) {
-			throw new UsernameNotFoundException("Email not found");
+		catch (Exception e) {
+			throw new UsernameNotFoundException("Invalid user");
 		}
 	}
 	
 	@Transactional(readOnly = true)
 	public UserDTO getMe() {
-		User user = authenticated();
-		return new UserDTO(user);
+		User entity = authenticated();
+		return new UserDTO(entity);
 	}
 }

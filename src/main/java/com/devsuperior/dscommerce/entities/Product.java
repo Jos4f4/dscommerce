@@ -117,4 +117,3 @@ public class Product {
         return id != null ? id.hashCode() : 0;
     }
 }
-

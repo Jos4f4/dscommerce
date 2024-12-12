@@ -23,5 +23,4 @@ public class CategoryController {
         List<CategoryDTO> list = service.findAll();
         return ResponseEntity.ok(list);
     }
-    
 }

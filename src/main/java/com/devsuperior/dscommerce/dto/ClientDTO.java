@@ -3,12 +3,11 @@ package com.devsuperior.dscommerce.dto;
 import com.devsuperior.dscommerce.entities.User;
 
 public class ClientDTO {
-	
+
 	private Long id;
 	private String name;
 	
 	public ClientDTO(Long id, String name) {
-		super();
 		this.id = id;
 		this.name = name;
 	}
@@ -25,5 +24,4 @@ public class ClientDTO {
 	public String getName() {
 		return name;
 	}
-	
 }

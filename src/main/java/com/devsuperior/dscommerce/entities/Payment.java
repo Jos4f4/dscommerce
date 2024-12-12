@@ -68,4 +68,3 @@ public class Payment {
         return id != null ? id.hashCode() : 0;
     }
 }
-

@@ -33,7 +33,7 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductMinDTO> findAll(String name,Pageable pageable) {
+    public Page<ProductMinDTO> findAll(String name, Pageable pageable) {
         Page<Product> result = repository.searchByName(name, pageable);
         return result.map(x -> new ProductMinDTO(x));
     }
@@ -79,9 +79,9 @@ public class ProductService {
         entity.setImgUrl(dto.getImgUrl());
         
         entity.getCategories().clear();
-        for(CategoryDTO catDTO : dto.getCategories()) {
+        for (CategoryDTO catDto : dto.getCategories()) {
         	Category cat = new Category();
-        	cat.setId(catDTO.getId());
+        	cat.setId(catDto.getId());
         	entity.getCategories().add(cat);
         }
     }

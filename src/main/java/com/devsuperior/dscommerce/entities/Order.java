@@ -105,4 +105,3 @@ public class Order {
         return id != null ? id.hashCode() : 0;
     }
 }
-
